@@ -1,0 +1,82 @@
+#include <iostream.h>
+#include <conio.h>
+
+void bubbleSort(float arr[], int n) {
+    int i, j;
+    float temp;
+    for (i = 0; i < n - 1; i++) {
+        for (j = 0; j < n - i - 1; j++) {
+            if (arr[j] > arr[j + 1]) {
+                temp = arr[j]; arr[j] = arr[j + 1]; arr[j + 1] = temp;
+            }
+        }
+    }
+}
+
+void selectionSort(float arr[], int n) {
+    int i, j, min_idx;
+    float temp;
+    for (i = 0; i < n - 1; i++) {
+        min_idx = i;
+        for (j = i + 1; j < n; j++)
+            if (arr[j] < arr[min_idx])
+                min_idx = j;
+        temp = arr[i]; arr[i] = arr[min_idx]; arr[min_idx] = temp;
+    }
+}
+
+void display(float arr[], int n) {
+    int i;
+    for (i = 0; i < n; i++)
+        cout << arr[i] << " ";
+    cout << "\n";
+}
+
+int linearSearch(float arr[], int n, float key) {
+    int i;
+    for (i = 0; i < n; i++)
+        if (arr[i] == key)
+            return i; // Found at index i
+    return -1; // Not found
+}
+
+void main() {
+    clrscr();
+    int n, choice, idx;
+    float key;
+
+    cout << "Enter number of products: ";
+    cin >> n;
+    float prices[100]; // Assume max 100 products
+    int i;
+
+    cout << "Enter product prices:\n";
+    for (i = 0; i < n; i++)
+        cin >> prices[i];
+
+    float arrBubble[100], arrSelection[100];
+    for (i = 0; i < n; i++) {
+        arrBubble[i] = prices[i];
+        arrSelection[i] = prices[i];
+    }
+
+    bubbleSort(arrBubble, n);
+    selectionSort(arrSelection, n);
+
+    cout << "\nSorted prices using Bubble Sort: ";
+    display(arrBubble, n);
+
+    cout << "Sorted prices using Selection Sort: ";
+    display(arrSelection, n);
+
+    cout << "\nEnter price to search: ";
+    cin >> key;
+
+    idx = linearSearch(prices, n, key);
+    if (idx != -1)
+        cout << "Price " << key << " found at position " << idx + 1 << "\n";
+    else
+        cout << "Price " << key << " not found!\n";
+
+    getch();
+}
